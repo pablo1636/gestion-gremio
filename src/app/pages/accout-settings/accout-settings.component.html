@@ -28,4 +28,35 @@
         </div>
     </div>
 
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Cambiar contraseña</h4>
+                <hr>
+                <form ngNativeValidate [formGroup]="formp" (ngSubmit)="cambiarPassword()" class="form-horizontal form-material" id="loginform" action="index.html">
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="passwordActual" name="passwordActual" class="form-control" type="password" required placeholder="Contraseña Actual">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Contraseña Nueva">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input formControlName="password2" name="password2" class="form-control" type="password" required placeholder="Confirma Contraseña">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-block btn-success waves-effect waves-light m-r-10">
+                    <i class="fa fa-save"></i>
+                    Cambiar
+                  </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </div>

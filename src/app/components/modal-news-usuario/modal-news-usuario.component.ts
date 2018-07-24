@@ -15,7 +15,6 @@ declare var swal: any;
 export class ModalNewsUsuarioComponent implements OnInit {
   formb: FormGroup;
 
-
   constructor(
     public _usuarioService: UsuarioService,
     public _modalNewUsuario: ModalNewsUsuarioService
@@ -38,7 +37,6 @@ export class ModalNewsUsuarioComponent implements OnInit {
     this.formb.reset();
 
   }
-
   registrarUsuario() {
     if (this.formb.invalid) {
       return;
@@ -50,12 +48,14 @@ export class ModalNewsUsuarioComponent implements OnInit {
         this.formb.value.password
       );
       usuario.role = 'USER_ROLE';
+      usuario.IDSindicato = localStorage.getItem('IDSindicato');
+      console.log(usuario);
       this._usuarioService.crearUsuario( usuario)
       .subscribe( resp => {
         this._modalNewUsuario.notificacionU.emit(resp);
         this.formb.reset();
         this.cerrarModalU();
-      });
+        });
 
 
   }

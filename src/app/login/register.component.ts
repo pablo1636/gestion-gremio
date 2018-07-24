@@ -68,9 +68,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
     if (!this.forma.value.condiciones) {
-      // swal('Hello world!');
       swal('Importante', 'Debe de aceptar las condiciones', 'warning');
-      // sweetalert('Hello world!');
       return;
       }
         let usuario = new Usuario(

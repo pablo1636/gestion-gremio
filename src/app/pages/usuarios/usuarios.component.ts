@@ -21,17 +21,19 @@ export class UsuariosComponent implements OnInit {
 
   // tslint:disable-next-line:no-inferrable-types
   totalRegistros: number = 0;
-  
+
 
   constructor(
     public _usuarioService: UsuarioService,
     public _modalUploadService: ModalUploadService,
-  public _modalNewsUsuario: ModalNewsUsuarioService ) { }
+    public _modalNewsUsuario: ModalNewsUsuarioService ) { }
 
   ngOnInit() {
     this.cargarUsuarios();
     this._modalUploadService.notificacion
           .subscribe( resp => this.cargarUsuarios() );
+    this._modalNewsUsuario.notificacionU
+    .subscribe( resp => this.cargarUsuarios());
   }
 
   mostrarModal( id: string ) {

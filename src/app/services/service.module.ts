@@ -14,7 +14,9 @@ import {
   LoginGuardGuard,
   AdminGuard,
   SubirArchivoService,
-  VerificaTokenGuard
+  VerificaTokenGuard,
+  PanaderiaService,
+  PersonaService
 } from './service.index';
 
 
@@ -34,7 +36,9 @@ import {
     SubirArchivoService,
     ModalUploadService,
     ModalNewsUsuarioService,
-    VerificaTokenGuard
+    VerificaTokenGuard,
+    PanaderiaService,
+    PersonaService
     ],
   declarations: []
 })

@@ -73,6 +73,7 @@ export class UsuarioService {
   guardarStorage( id: string, token: string, usuario: Usuario, menu: any ) {
 
     localStorage.setItem('id', id );
+    localStorage.setItem('IDSindicato', usuario.IDSindicato);
     localStorage.setItem('token', token );
     localStorage.setItem('usuario', JSON.stringify(usuario) );
     localStorage.setItem('menu', JSON.stringify(menu) );
@@ -89,6 +90,8 @@ export class UsuarioService {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     localStorage.removeItem('menu');
+    localStorage.removeItem('IDSindicato');
+    localStorage.removeItem('id');
 
     this.router.navigate(['/login']);
   }
@@ -143,6 +146,7 @@ export class UsuarioService {
 
                   if ( usuario.id === this.usuario.id ) {
                     let usuarioDB: Usuario = resp.usuario;
+                    usuarioDB.password = ':)';
                     this.guardarStorage( usuarioDB.id, this.token, usuarioDB, this.menu );
                   }
                   swal('Usuario actualizado', usuario.nombre, 'success' );
@@ -189,6 +193,27 @@ export class UsuarioService {
                 .map( resp => {
                   swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
                   return true;
+                });
+
+  }
+
+  cambiarPassword( password: string, passwordNuevo: string, id: string ) {
+    let url = URL_SERVICIOS + '/usuario/pass/' + id;
+    let data = {
+      password: password,
+      passwordNuevo: passwordNuevo
+   };
+    // url += '?token=' + this.token;
+      return this.http.put( url, data)
+                .map( (resp: any) => {
+
+                  swal('Contraseña actualizada', 'Debe ingresar nuevamente al sistema' , 'success' );
+                  return true;
+                }).catch( err => {
+
+                  swal( 'Contraseña incorrecta', 'Debe ingresar nuevamente', 'error' );
+                  this.logout();
+                  return Observable.throw( err );
                 });
 
   }

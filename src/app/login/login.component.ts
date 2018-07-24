@@ -5,7 +5,6 @@ import { UsuarioService } from '../services/service.index';
 import { Usuario } from '../models/usuario.model';
 
 declare function init_plugins();
-// declare const gapi: any;
 
 
 @Component({
@@ -48,7 +47,6 @@ export class LoginComponent implements OnInit {
     this._usuarioService.login( usuario, forma.value.recuerdame )
                   .subscribe( correcto => this.router.navigate(['/dashboard'])  );
 
-    // this.router.navigate([ '/dashboard' ]);
 
   }
 
