@@ -1,3 +1,68 @@
-<p>
-  medios works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formBuscar">
+                    <input #input (keyup)="buscarMedios( input.value )" type="text" class="form-control" formControlName="busqueda" placeholder="Buscar Medios...">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando...</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h3 class="card-title">Medios registrados ( <small>{{ totalRegistros }}</small> )</h3>
+                <div class="col-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th class="d-none d-md-block">Domicilio</th>
+                                <th class="d-none d-md-block">Localidad</th>
+                                <th>Telefono</th>
+                                <th>Celular</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor='let medio of medios'>
+                                <td>{{ medio.Nombre }}</td>
+                                <td class="d-none d-md-block">{{ medio.Domicilio }}</td>
+                                <td class="d-none d-md-block">{{ medio.Localidad}}</td>
+                                <td>{{ medio.Celular }}</td>
+                                <td>{{ medio.TEFijo }}</td>
+
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                Anteriores
+              </button>
+                <span>{{ desde }} de {{ totalPaginas }}</span>
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                  Siguientes
+              </button>
+
+            </div>
+        </div>
+    </div>
+</div>

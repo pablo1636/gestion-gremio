@@ -18,7 +18,6 @@ export class VerificaTokenGuard implements CanActivate {
 
     let token = this._usuarioService.token;
     let payload = JSON.parse( atob( token.split('.')[1] ));
-
     let expirado = this.expirado( payload.exp );
 
     if ( expirado ) {

@@ -22,7 +22,7 @@ export class SubirArchivoService {
 
           if ( xhr.status === 200 ) {
             console.log( 'Imagen subida' );
-            resolve( JSON.parse( xhr.response ) );
+            resolve(  xhr.response  );
           } else {
             console.log( 'Fallo la subida' );
             reject( xhr.response );
@@ -30,10 +30,8 @@ export class SubirArchivoService {
 
         }
       };
-
-      let url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
-
-      xhr.open('PUT', url, true );
+      let url = URL_SERVICIOS + '/archivo/imagen/' + tipo + '/' + id;
+      xhr.open('POST', url, true );
       xhr.send( formData );
 
     });

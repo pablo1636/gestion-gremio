@@ -1,3 +1,84 @@
-<p>
-  personas works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formBuscar">
+                    <input #input (keyup)="buscarPersona( input.value )" type="text" class="form-control" formControlName="busqueda" placeholder="Buscar afiliado por apellido o Ficha...">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando...</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-xs-12 text-right">
+                    <button (click)="irAlta()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary"><i class="fa fa-plus"></i>Nuevo</button>
+                </div>
+                <h3 class="card-title">Personas registradas ( <small>{{ totalRegistros }}</small> )</h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Tipo</th>
+                            <th>Auth</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor='let persona of personas'>
+                            <td class="w70">
+
+                                <img (click)="mostrarModal( persona.ID)" [src]="persona.Foto | imagen:'persona'" class="img-50 img-circle pointer">
+                            </td>
+                            <td>
+                                {{ persona.ApellidoyNombre }}
+                            </td>
+                            <td>{{ persona.Dni }}</td>
+                            <td>
+                                <label *ngIf=" persona.Tipo == 'AFILIADO'" class="label label-danger">Afiliado</label>
+                                <label *ngIf="persona.Tipo == 'NO AFILIADO'" class="label label-info">No Afiliado</label>
+                            </td>
+                            <td>
+                                <button [routerLink]="['/abm-persona', persona.ID]" class="btn btn-primary">
+                              <i class="fa fa-edit"></i>
+                            </button>
+
+                                <button (click)="borrarPersona( persona )" class="btn btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                              </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                  Anteriores
+                </button>
+                <span>{{ desde }} de {{ totalPaginas }}</span>
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                    Siguientes
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

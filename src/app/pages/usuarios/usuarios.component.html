@@ -23,29 +23,31 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="col-xs-12 text-right">
+                <div class="text-right">
                     <button (click)="mostrarModalUsuario()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary"><i class="fa fa-plus"></i>Nuevo</button>
+                    <!-- <button (click)="crearPdf()" type="button" class="btn waves-effect waves-light btn-rounded btn-danger">PDF</button> -->
                 </div>
                 <h3 class="card-title">Usuarios registrados ( <small>{{ totalRegistros}}</small> )</h3>
 
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Imagen</th>
-                            <th>Correo</th>
+                            <th class="d-none d-md-block">Imagen</th>
+                            <th class="d-none d-md-block">Correo</th>
                             <th>Nombre</th>
                             <th>Role</th>
-                            <th>Auth</th>
+                            <th class="d-none d-md-block">Auth</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr *ngFor='let usuario of usuarios'>
-                            <td class="w70">
+                            <td class="d-none d-md-block w70">
                                 <img (click)="mostrarModal( usuario.id )" [src]="usuario.img | imagen" class="img-50 img-circle pointer">
+
                             </td>
-                            <td>
+                            <td class="d-none d-md-block">
                                 {{ usuario.email }}
                             </td>
                             <td>{{ usuario.nombre }}</td>
@@ -57,7 +59,7 @@
 
 
                             </td>
-                            <td>
+                            <td class="d-none d-md-block">
                                 <!-- <label class="label label-danger">Google</label> -->
                                 <label class="label label-info">Normal</label>
                             </td>
@@ -75,13 +77,14 @@
                     </tbody>
 
                 </table>
-                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
                     Anteriores
-                  </button>
-
-                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                </button>
+                <span>{{ desde }} de {{ totalPaginas }}</span>
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
                       Siguientes
                   </button>
+
 
             </div>
         </div>

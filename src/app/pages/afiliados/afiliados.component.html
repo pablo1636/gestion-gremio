@@ -1,48 +1,78 @@
 <div class="row">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Listado Afiliados </h4>
-            <!-- <h6 class="card-subtitle">Data table example</h6> -->
-            <div class="table-responsive m-t-40">
-                <div id="example_wrapper" class="dataTables_wrapper">
-                    <!-- <div class="dataTables_length" id="example_length"><label>Show <select name="example_length" aria-controls="example" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div> -->
-                    <div id="example_filter" class="dataTables_filter"><label>Buscar:<input type="search" class="" placeholder="" aria-controls="example"></label></div>
-                    <table id="example" class="table display table-bordered table-striped dataTable" role="grid" aria-describedby="example_info" style="width: 1018px;">
-                        <thead>
-                            <tr role="row">
-                                <th aria-controls="example" rowspan="1" colspan="1" style="width: 216px;">Nombre</th>
-                                <th aria-controls="example" rowspan="1" colspan="1" style="width: 334px;">DNI</th>
-                                <th aria-controls="example" rowspan="1" colspan="1" style="width: 84px;">Telefono</th>
-                                <th aria-controls="example" rowspan="1" colspan="1" style="width: 154px;">Email</th>
-                                <th aria-controls="example" rowspan="1" colspan="1" style="width: 110px;">Lugar</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th rowspan="1" colspan="1">Nombre</th>
-                                <th rowspan="1" colspan="1">DNI</th>
-                                <th rowspan="1" colspan="1">Telefono</th>
-                                <th rowspan="1" colspan="1">Email</th>
-                                <th rowspan="1" colspan="1">Lugar</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-                            <tr *ngFor='let persona of personas' role="row" class="odd">
-                                <td><a routerLink="/ficha">{{ persona.ApellidoyNombre }}</a></td>
-                                <td>{{ persona.DNI }}</td>
-                                <td>{{ persona.Celular }}</td>
-                                <td>{{ persona.email }}</td>
-                                <td>{{ persona.Localidad }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="dataTables_info" id="example_info" role="status" aria-live="polite">Mostrando 1 de 17 de Registros</div>
-                    <div class="dataTables_paginate paging_simple_numbers" id="example_paginate"><a class="paginate_button previous disabled" aria-controls="example" data-dt-idx="0" tabindex="0" id="example_previous">Anterior</a><span><a class="paginate_button current" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></span>
-                        <a class="paginate_button next disabled" aria-controls="example" data-dt-idx="2" tabindex="0" id="example_next">Siguiente</a>
-                    </div>
-                </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formBuscar">
+                    <input #input (keyup)="buscarAfiliado( input.value )" type="text" class="form-control" formControlName="busqueda" placeholder="Buscar Afiliado...">
+                </form>
             </div>
         </div>
     </div>
+</div>
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando...</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
 
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h3 class="card-title">Personas registradas ( <small>{{ totalRegistros }}</small> )</h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>DNI</th>
+                            <th>Tipo</th>
+                            <th>Ver</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor='let persona of personas'>
+                            <td class="w70">
+                                <img [src]="persona.Foto | imagen:'persona'" class="img-50 img-circle pointer">
+                            </td>
+                            <td>
+                                <a [routerLink]="['/ficha', persona.ID]">{{ persona.ApellidoyNombre }}</a>
+                            </td>
+                            <td>{{ persona.Dni }}</td>
+                            <td>
+                                <label *ngIf=" persona.Tipo == 'AFILIADO'" class="label label-danger">Afiliado</label>
+                                <label *ngIf="persona.Tipo == 'NO AFILIADO'" class="label label-info">No Afiliado</label>
+                            </td>
+                            <td>
+                                <button [routerLink]="['/ficha', persona.ID]" class="btn btn-primary">
+                              <i class="fa fa-info"></i>
+                            </button>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                  Anteriores
+                </button>
+                <span>{{ desde }} de {{ totalPaginas }}</span>
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                    Siguientes
+                </button>
+
+            </div>
+        </div>
+    </div>
 </div>

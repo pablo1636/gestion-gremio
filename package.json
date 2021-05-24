@@ -21,7 +21,12 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "@types/pdfmake": "^0.1.11",
+    "canvas": "^2.6.1",
     "core-js": "^2.4.1",
+    "ngx-barcode": "^0.2.4",
+    "pdfmake": "^0.1.65",
+    "pdfmake-wrapper": "^2.0.0",
     "rxjs": "^5.5.6",
     "sweetalert": "^2.1.0",
     "zone.js": "^0.8.19"

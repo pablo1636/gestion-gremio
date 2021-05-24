@@ -49,7 +49,6 @@ export class ModalNewsUsuarioComponent implements OnInit {
       );
       usuario.role = 'USER_ROLE';
       usuario.IDSindicato = localStorage.getItem('IDSindicato');
-      console.log(usuario);
       this._usuarioService.crearUsuario( usuario)
       .subscribe( resp => {
         this._modalNewUsuario.notificacionU.emit(resp);

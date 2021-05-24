@@ -24,7 +24,6 @@ export class ModalUploadComponent implements OnInit {
   cerrarModal() {
     this.imagenTemp = null;
     this.imagenSubir = null;
-
     this._modalUploadService.ocultarModal();
   }
 
@@ -45,7 +44,6 @@ export class ModalUploadComponent implements OnInit {
 
     let reader = new FileReader();
     let urlImagenTemp = reader.readAsDataURL( archivo );
-
     reader.onloadend = () => this.imagenTemp = reader.result;
 
   }
@@ -57,6 +55,7 @@ export class ModalUploadComponent implements OnInit {
 
             this._modalUploadService.notificacion.emit( resp );
             this.cerrarModal();
+
 
           })
           .catch( err => {
